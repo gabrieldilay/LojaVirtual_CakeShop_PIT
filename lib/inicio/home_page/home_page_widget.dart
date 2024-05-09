@@ -1,3 +1,4 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:badges/badges.dart' as badges;
@@ -106,7 +107,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
                           child: Image.network(
-                            'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxjYWtlfGVufDB8fHx8MTcxNTA0MTU1M3ww&ixlib=rb-4.0.3&q=80&w=400',
+                            'https://img.freepik.com/vetores-premium/logo-da-loja-de-bolos-cupcake-e-frutas_528132-243.jpg?w=360',
                             width: 70.0,
                             height: 70.0,
                             fit: BoxFit.cover,
@@ -237,70 +238,257 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 180.0,
-                      child: CarouselSlider(
-                        items: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              'https://picsum.photos/seed/483/600',
-                              width: 300.0,
-                              height: 200.0,
-                              fit: BoxFit.cover,
+                  Container(
+                    width: double.infinity,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: FutureBuilder<List<ProdutosRow>>(
+                            future: ProdutosTable().queryRows(
+                              queryFn: (q) => q.eq(
+                                'e_pro',
+                                true,
+                              ),
                             ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<ProdutosRow> carouselProdutosRowList =
+                                  snapshot.data!;
+                              return SizedBox(
+                                width: double.infinity,
+                                height: 250.0,
+                                child: CarouselSlider.builder(
+                                  itemCount: carouselProdutosRowList.length,
+                                  itemBuilder: (context, carouselIndex, _) {
+                                    final carouselProdutosRow =
+                                        carouselProdutosRowList[carouselIndex];
+                                    return Stack(
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.0, -0.98),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.5,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.2,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(10.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                child: Image.network(
+                                                  valueOrDefault<String>(
+                                                    carouselProdutosRow.img,
+                                                    'https://handletheheat.com/wp-content/uploads/2021/02/chocolate-cupcakes-SQUARE.png',
+                                                  ),
+                                                  width: 100.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.0, 0.98),
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.5,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.08,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(6.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              carouselProdutosRow
+                                                                  .nomeProduto,
+                                                              'nome_produto',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(6.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'De ${formatNumber(
+                                                            carouselProdutosRow
+                                                                .valor,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .periodDecimal,
+                                                            currency: 'R\$',
+                                                          )}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      6.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            'Por ${formatNumber(
+                                                              carouselProdutosRow
+                                                                  .valorPromo,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .decimal,
+                                                              decimalType:
+                                                                  DecimalType
+                                                                      .periodDecimal,
+                                                              currency: 'R\$',
+                                                            )}',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .success,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  carouselController:
+                                      _model.carouselController ??=
+                                          CarouselController(),
+                                  options: CarouselOptions(
+                                    initialPage: min(
+                                        1, carouselProdutosRowList.length - 1),
+                                    viewportFraction: 0.5,
+                                    disableCenter: true,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.25,
+                                    enableInfiniteScroll: true,
+                                    scrollDirection: Axis.horizontal,
+                                    autoPlay: false,
+                                    onPageChanged: (index, _) =>
+                                        _model.carouselCurrentIndex = index,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              'https://picsum.photos/seed/904/600',
-                              width: 300.0,
-                              height: 200.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              'https://picsum.photos/seed/336/600',
-                              width: 300.0,
-                              height: 200.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              'https://picsum.photos/seed/164/600',
-                              width: 300.0,
-                              height: 200.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                        carouselController: _model.carouselController ??=
-                            CarouselController(),
-                        options: CarouselOptions(
-                          initialPage: 1,
-                          viewportFraction: 0.5,
-                          disableCenter: true,
-                          enlargeCenterPage: true,
-                          enlargeFactor: 0.25,
-                          enableInfiniteScroll: true,
-                          scrollDirection: Axis.horizontal,
-                          autoPlay: false,
-                          onPageChanged: (index, _) =>
-                              _model.carouselCurrentIndex = index,
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -418,7 +606,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -439,136 +627,190 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: const Color(0xFF8FABA3),
-                          elevation: 4.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
+                    child: FutureBuilder<List<ProdutosRow>>(
+                      future: ProdutosTable().queryRows(
+                        queryFn: (q) => q.eq(
+                          'categoria',
+                          'pratos',
+                        ),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        List<ProdutosRow> listaPratosProdutosRowList =
+                            snapshot.data!;
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children:
+                              List.generate(listaPratosProdutosRowList.length,
+                                  (listaPratosIndex) {
+                            final listaPratosProdutosRow =
+                                listaPratosProdutosRowList[listaPratosIndex];
+                            return Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: const Color(0xFF8FABA3),
+                              elevation: 4.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 10.0, 10.0, 10.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            valueOrDefault<String>(
+                                              listaPratosProdutosRow.img,
+                                              'https://handletheheat.com/wp-content/uploads/2021/02/chocolate-cupcakes-SQUARE.png',
+                                            ),
+                                            width: 70.0,
+                                            height: 70.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 10.0, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    listaPratosProdutosRow
+                                                        .nomeProduto,
+                                                    'nome_produto',
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    listaPratosProdutosRow
+                                                        .descricao,
+                                                    'descricao',
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 50,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 10.0, 10.0, 10.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/812/600',
-                                        width: 70.0,
-                                        height: 70.0,
-                                        fit: BoxFit.cover,
-                                      ),
+                                        0.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'R\$',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Text(
+                                          formatNumber(
+                                            listaPratosProdutosRow.valorPromo!,
+                                            formatType: FormatType.decimal,
+                                            decimalType:
+                                                DecimalType.periodDecimal,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 10.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'TITULO',
-                                              textAlign: TextAlign.start,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'DESCRIÇÃO',
-                                              textAlign: TextAlign.start,
-                                              maxLines: 50,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 10.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'R\$',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            fontSize: 20.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    Text(
-                                      '55,90',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                            );
+                          }),
+                        );
+                      },
                     ),
                   ),
                 ],
