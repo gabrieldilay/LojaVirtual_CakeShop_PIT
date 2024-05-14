@@ -56,6 +56,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'tradicionais',
           path: '/tradicionais',
           builder: (context, params) => const TradicionaisWidget(),
+        ),
+        FFRoute(
+          name: 'especiais',
+          path: '/especiais',
+          builder: (context, params) => const EspeciaisWidget(),
+        ),
+        FFRoute(
+          name: 'bebidas',
+          path: '/bebidas',
+          builder: (context, params) => const BebidasWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -240,4 +250,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

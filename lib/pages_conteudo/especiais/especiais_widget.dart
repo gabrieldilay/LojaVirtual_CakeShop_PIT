@@ -2,25 +2,25 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'tradicionais_model.dart';
-export 'tradicionais_model.dart';
+import 'especiais_model.dart';
+export 'especiais_model.dart';
 
-class TradicionaisWidget extends StatefulWidget {
-  const TradicionaisWidget({super.key});
+class EspeciaisWidget extends StatefulWidget {
+  const EspeciaisWidget({super.key});
 
   @override
-  State<TradicionaisWidget> createState() => _TradicionaisWidgetState();
+  State<EspeciaisWidget> createState() => _EspeciaisWidgetState();
 }
 
-class _TradicionaisWidgetState extends State<TradicionaisWidget> {
-  late TradicionaisModel _model;
+class _EspeciaisWidgetState extends State<EspeciaisWidget> {
+  late EspeciaisModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TradicionaisModel());
+    _model = createModel(context, () => EspeciaisModel());
   }
 
   @override
@@ -48,7 +48,7 @@ class _TradicionaisWidgetState extends State<TradicionaisWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Tradicionais',
+                'Especiais',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       fontSize: 20.0,
@@ -93,7 +93,7 @@ class _TradicionaisWidgetState extends State<TradicionaisWidget> {
                     future: ProdutosTable().queryRows(
                       queryFn: (q) => q.eq(
                         'categoria',
-                        'pratos',
+                        'especiais',
                       ),
                     ),
                     builder: (context, snapshot) {

@@ -2,25 +2,25 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'tradicionais_model.dart';
-export 'tradicionais_model.dart';
+import 'bebidas_model.dart';
+export 'bebidas_model.dart';
 
-class TradicionaisWidget extends StatefulWidget {
-  const TradicionaisWidget({super.key});
+class BebidasWidget extends StatefulWidget {
+  const BebidasWidget({super.key});
 
   @override
-  State<TradicionaisWidget> createState() => _TradicionaisWidgetState();
+  State<BebidasWidget> createState() => _BebidasWidgetState();
 }
 
-class _TradicionaisWidgetState extends State<TradicionaisWidget> {
-  late TradicionaisModel _model;
+class _BebidasWidgetState extends State<BebidasWidget> {
+  late BebidasModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TradicionaisModel());
+    _model = createModel(context, () => BebidasModel());
   }
 
   @override
@@ -40,7 +40,7 @@ class _TradicionaisWidgetState extends State<TradicionaisWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: const Color(0x004B39EF),
+          backgroundColor: Colors.transparent,
           iconTheme: const IconThemeData(color: Colors.black),
           automaticallyImplyLeading: true,
           title: Row(
@@ -48,7 +48,7 @@ class _TradicionaisWidgetState extends State<TradicionaisWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Tradicionais',
+                'Bebidas',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       fontSize: 20.0,
@@ -93,7 +93,7 @@ class _TradicionaisWidgetState extends State<TradicionaisWidget> {
                     future: ProdutosTable().queryRows(
                       queryFn: (q) => q.eq(
                         'categoria',
-                        'pratos',
+                        'bebida',
                       ),
                     ),
                     builder: (context, snapshot) {
