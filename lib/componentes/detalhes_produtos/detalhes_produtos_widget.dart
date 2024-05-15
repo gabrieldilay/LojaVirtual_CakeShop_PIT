@@ -1,6 +1,8 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'detalhes_produtos_model.dart';
@@ -73,8 +75,7 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -97,30 +98,66 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 6.0, 0.0, 0.0),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      widget.descricao,
-                                      'descricao',
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 6.0, 0.0, 0.0),
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        widget.descricao,
+                                        'descricao',
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          letterSpacing: 0.0,
-                                        ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: const AlignmentDirectional(-0.04, 0.69),
+                                  child: Container(
+                                    width: 300.0,
+                                    height: 250.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        valueOrDefault<String>(
+                                          widget.imagem,
+                                          'https://natashaskitchen.com/wp-content/uploads/2020/05/Vanilla-Cupcakes-3.jpg',
+                                        ),
+                                        width: 300.0,
+                                        height: 259.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -143,29 +180,6 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                           Icons.close,
                           color: FlutterFlowTheme.of(context).error,
                           size: 40.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(-0.04, 0.69),
-                    child: Container(
-                      width: 300.0,
-                      height: 250.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          valueOrDefault<String>(
-                            widget.imagem,
-                            'https://natashaskitchen.com/wp-content/uploads/2020/05/Vanilla-Cupcakes-3.jpg',
-                          ),
-                          width: 300.0,
-                          height: 259.0,
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -252,10 +266,32 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                         ),
                       ),
                     ),
-                    Icon(
-                      Icons.add_circle,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 30.0,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().addToPedido(PedidoStruct(
+                            nomePedido: widget.titulo,
+                            preco: widget.valorpromo,
+                            quantidade: _model.countControllerValue?.toDouble(),
+                            img: widget.imagem,
+                          ));
+                          FFAppState().addCarrinho =
+                              FFAppState().addCarrinho + 1.0;
+                          FFAppState().soma = FFAppState().soma +
+                              functions.soma(widget.valorpromo!,
+                                  _model.countControllerValue!.toDouble());
+                        });
+                        context.safePop();
+                      },
+                      child: Icon(
+                        Icons.add_circle,
+                        color: FlutterFlowTheme.of(context).secondary,
+                        size: 30.0,
+                      ),
                     ),
                   ],
                 ),

@@ -3,7 +3,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'carrinho_model.dart';
 export 'carrinho_model.dart';
 
@@ -52,6 +54,8 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -108,94 +112,145 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Container(
-                        width: 100.0,
-                        height: 120.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ClipRRect(
+                  child: Builder(
+                    builder: (context) {
+                      final carrinho = FFAppState().pedido.toList();
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: carrinho.length,
+                        itemBuilder: (context, carrinhoIndex) {
+                          final carrinhoItem = carrinho[carrinhoIndex];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 100.0,
+                              height: 120.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/136/600',
-                                  width: 70.0,
-                                  height: 70.0,
-                                  fit: BoxFit.cover,
-                                ),
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Pedido',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        carrinhoItem.img,
+                                        width: 70.0,
+                                        height: 70.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                carrinhoItem.nomePedido,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
+                                            ),
+                                            Text(
+                                              '${formatNumber(
+                                                carrinhoItem.preco,
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.commaDecimal,
+                                                currency: 'R\$',
+                                              )} x ${formatNumber(
+                                                carrinhoItem.quantidade,
+                                                formatType: FormatType.custom,
+                                                format: '',
+                                                locale: '',
+                                              )}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                            Text(
+                                              'ID: 5482145',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Text(
-                                        'R\$ 10,90',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0.0,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          setState(() {
+                                            FFAppState()
+                                                .removeAtIndexFromPedido(
+                                                    carrinhoIndex);
+                                            FFAppState().addCarrinho =
+                                                FFAppState().addCarrinho + -1.0;
+                                            FFAppState().soma =
+                                                FFAppState().soma +
+                                                    functions.subtracao(
+                                                        functions.soma(
+                                                            carrinhoItem.preco,
+                                                            carrinhoItem
+                                                                .quantidade));
+                                          });
+                                        },
+                                        child: const Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.delete,
+                                              color: Color(0xFFC03636),
+                                              size: 24.0,
                                             ),
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        'ID: 5482145',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(6.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: Color(0xFFC03636),
-                                      size: 24.0,
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
                 Padding(
@@ -220,16 +275,33 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          'R\$ 10,90',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            setState(() {
+                              FFAppState().soma = 0.0;
+                            });
+                          },
+                          child: Text(
+                            formatNumber(
+                              FFAppState().soma,
+                              formatType: FormatType.decimal,
+                              decimalType: DecimalType.periodDecimal,
+                              currency: 'R\$',
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ),
                     ],
