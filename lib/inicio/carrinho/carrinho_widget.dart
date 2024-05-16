@@ -1,3 +1,5 @@
+import '/backend/schema/structs/index.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -31,18 +33,6 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
 
     _model.nomeTextController2 ??= TextEditingController();
     _model.nomeFocusNode2 ??= FocusNode();
-
-    _model.nomeTextController3 ??= TextEditingController();
-    _model.nomeFocusNode3 ??= FocusNode();
-
-    _model.nomeTextController4 ??= TextEditingController();
-    _model.nomeFocusNode4 ??= FocusNode();
-
-    _model.nomeTextController5 ??= TextEditingController();
-    _model.nomeFocusNode5 ??= FocusNode();
-
-    _model.nomeTextController6 ??= TextEditingController();
-    _model.nomeFocusNode6 ??= FocusNode();
   }
 
   @override
@@ -290,7 +280,7 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                             formatNumber(
                               FFAppState().soma,
                               formatType: FormatType.decimal,
-                              decimalType: DecimalType.periodDecimal,
+                              decimalType: DecimalType.automatic,
                               currency: 'R\$',
                             ),
                             style: FlutterFlowTheme.of(context)
@@ -405,81 +395,6 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.nomeTextController2,
-                              focusNode: _model.nomeFocusNode2,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Rua',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                prefixIcon: const Icon(
-                                  Icons.map,
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              textAlign: TextAlign.start,
-                              validator: _model.nomeTextController2Validator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -491,308 +406,70 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                       Expanded(
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 5.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.nomeTextController3,
-                              focusNode: _model.nomeFocusNode3,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Número',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                prefixIcon: const Icon(
-                                  Icons.house,
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                          child: TextFormField(
+                            controller: _model.nomeTextController2,
+                            focusNode: _model.nomeFocusNode2,
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Endereço',
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
                                   .override(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
                                   ),
-                              textAlign: TextAlign.start,
-                              validator: _model.nomeTextController3Validator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.nomeTextController4,
-                              focusNode: _model.nomeFocusNode4,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Complemento',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                prefixIcon: const Icon(
-                                  Icons.house,
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
                                   .override(
                                     fontFamily: 'Readex Pro',
-                                    fontSize: 14.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
                                   ),
-                              textAlign: TextAlign.start,
-                              validator: _model.nomeTextController4Validator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 5.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.nomeTextController5,
-                              focusNode: _model.nomeFocusNode5,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'CEP',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                prefixIcon: const Icon(
-                                  Icons.pin_drop,
-                                ),
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              textAlign: TextAlign.start,
-                              validator: _model.nomeTextController5Validator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 0.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.nomeTextController6,
-                              focusNode: _model.nomeFocusNode6,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Telefone',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  width: 2.0,
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                prefixIcon: const Icon(
-                                  Icons.phone,
-                                ),
+                                borderRadius: BorderRadius.circular(30.0),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              textAlign: TextAlign.start,
-                              validator: _model.nomeTextController6Validator
-                                  .asValidator(context),
+                              errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              filled: true,
+                              prefixIcon: const Icon(
+                                Icons.house,
+                              ),
                             ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 14.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            textAlign: TextAlign.start,
+                            validator: _model.nomeTextController2Validator
+                                .asValidator(context),
                           ),
                         ),
                       ),
@@ -855,8 +532,72 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                     children: [
                       Expanded(
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            if (FFAppState().pedido.isNotEmpty) {
+                              setState(() {
+                                FFAppState().contador = -1;
+                              });
+                              while (FFAppState().contador <=
+                                  FFAppState().pedido.length) {
+                                setState(() {
+                                  FFAppState().contador =
+                                      FFAppState().contador + 1;
+                                });
+                                setState(() {
+                                  FFAppState().addToPedidosFinalizados(
+                                      OrdensPedidosStruct(
+                                    nomeCliente:
+                                        _model.nomeTextController1.text,
+                                    formaPag: _model.dropDownValue,
+                                    endereco: _model.nomeTextController2.text,
+                                    pedido: FFAppState()
+                                        .pedido[FFAppState().contador]
+                                        .nomePedido,
+                                    valor: FFAppState()
+                                        .pedido[FFAppState().contador]
+                                        .preco,
+                                    quantidade: FFAppState()
+                                        .pedido[FFAppState().contador]
+                                        .quantidade,
+                                    img: FFAppState()
+                                        .pedido[FFAppState().contador]
+                                        .img,
+                                    data: getCurrentTimestamp,
+                                  ));
+                                  FFAppState().soma2 = FFAppState().soma2 +
+                                      functions.soma(
+                                          FFAppState()
+                                              .pedido[FFAppState().contador]
+                                              .preco,
+                                          FFAppState()
+                                              .pedido[FFAppState().contador]
+                                              .quantidade);
+                                });
+                                await PedidosClienteTable().insert({
+                                  'created_at': supaSerialize<DateTime>(
+                                      getCurrentTimestamp),
+                                  'n_cliente': _model.nomeTextController1.text,
+                                  'endereco': _model.nomeTextController2.text,
+                                  'pagamento': _model.dropDownValue,
+                                  'valor': FFAppState()
+                                      .pedido[FFAppState().contador]
+                                      .preco,
+                                  'pedido': FFAppState()
+                                      .pedido[FFAppState().contador]
+                                      .nomePedido,
+                                  'quantidade': FFAppState()
+                                      .pedido[FFAppState().contador]
+                                      .quantidade,
+                                  'img': FFAppState()
+                                      .pedido[FFAppState().contador]
+                                      .img,
+                                });
+
+                                context.pushNamed('pedidos_finalizados');
+                              }
+                            } else {
+                              return;
+                            }
                           },
                           text: 'Finalizar Pedido',
                           options: FFButtonOptions(

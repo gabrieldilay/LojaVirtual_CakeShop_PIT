@@ -7,6 +7,7 @@ import '/backend/schema/structs/index.dart';
 
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -32,17 +33,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => const HomePageWidget(),
+      errorBuilder: (context, state) => const NavBarPage(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const HomePageWidget(),
+          builder: (context, _) => const NavBarPage(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'HomePage')
+              : const HomePageWidget(),
         ),
         FFRoute(
           name: 'Carrinho',
@@ -52,7 +55,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Ordens_pedidos',
           path: '/ordensPedidos',
-          builder: (context, params) => const OrdensPedidosWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Ordens_pedidos')
+              : const OrdensPedidosWidget(),
         ),
         FFRoute(
           name: 'tradicionais',
@@ -68,6 +73,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'bebidas',
           path: '/bebidas',
           builder: (context, params) => const BebidasWidget(),
+        ),
+        FFRoute(
+          name: 'pedidos_finalizados',
+          path: '/pedidosFinalizados',
+          builder: (context, params) => const PedidosFinalizadosWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -15,22 +15,6 @@ class CarrinhoModel extends FlutterFlowModel<CarrinhoWidget> {
   FocusNode? nomeFocusNode2;
   TextEditingController? nomeTextController2;
   String? Function(BuildContext, String?)? nomeTextController2Validator;
-  // State field(s) for nome widget.
-  FocusNode? nomeFocusNode3;
-  TextEditingController? nomeTextController3;
-  String? Function(BuildContext, String?)? nomeTextController3Validator;
-  // State field(s) for nome widget.
-  FocusNode? nomeFocusNode4;
-  TextEditingController? nomeTextController4;
-  String? Function(BuildContext, String?)? nomeTextController4Validator;
-  // State field(s) for nome widget.
-  FocusNode? nomeFocusNode5;
-  TextEditingController? nomeTextController5;
-  String? Function(BuildContext, String?)? nomeTextController5Validator;
-  // State field(s) for nome widget.
-  FocusNode? nomeFocusNode6;
-  TextEditingController? nomeTextController6;
-  String? Function(BuildContext, String?)? nomeTextController6Validator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -46,17 +30,5 @@ class CarrinhoModel extends FlutterFlowModel<CarrinhoWidget> {
 
     nomeFocusNode2?.dispose();
     nomeTextController2?.dispose();
-
-    nomeFocusNode3?.dispose();
-    nomeTextController3?.dispose();
-
-    nomeFocusNode4?.dispose();
-    nomeTextController4?.dispose();
-
-    nomeFocusNode5?.dispose();
-    nomeTextController5?.dispose();
-
-    nomeFocusNode6?.dispose();
-    nomeTextController6?.dispose();
   }
 }

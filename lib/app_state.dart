@@ -42,6 +42,21 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _soma2 = prefs.getDouble('ff_soma2') ?? _soma2;
     });
+    _safeInit(() {
+      _pedidosFinalizados = prefs
+              .getStringList('ff_pedidosFinalizados')
+              ?.map((x) {
+                try {
+                  return OrdensPedidosStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _pedidosFinalizados;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -110,6 +125,54 @@ class FFAppState extends ChangeNotifier {
   set soma2(double value) {
     _soma2 = value;
     prefs.setDouble('ff_soma2', value);
+  }
+
+  int _contador = -1;
+  int get contador => _contador;
+  set contador(int value) {
+    _contador = value;
+  }
+
+  List<OrdensPedidosStruct> _pedidosFinalizados = [];
+  List<OrdensPedidosStruct> get pedidosFinalizados => _pedidosFinalizados;
+  set pedidosFinalizados(List<OrdensPedidosStruct> value) {
+    _pedidosFinalizados = value;
+    prefs.setStringList(
+        'ff_pedidosFinalizados', value.map((x) => x.serialize()).toList());
+  }
+
+  void addToPedidosFinalizados(OrdensPedidosStruct value) {
+    _pedidosFinalizados.add(value);
+    prefs.setStringList('ff_pedidosFinalizados',
+        _pedidosFinalizados.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromPedidosFinalizados(OrdensPedidosStruct value) {
+    _pedidosFinalizados.remove(value);
+    prefs.setStringList('ff_pedidosFinalizados',
+        _pedidosFinalizados.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromPedidosFinalizados(int index) {
+    _pedidosFinalizados.removeAt(index);
+    prefs.setStringList('ff_pedidosFinalizados',
+        _pedidosFinalizados.map((x) => x.serialize()).toList());
+  }
+
+  void updatePedidosFinalizadosAtIndex(
+    int index,
+    OrdensPedidosStruct Function(OrdensPedidosStruct) updateFn,
+  ) {
+    _pedidosFinalizados[index] = updateFn(_pedidosFinalizados[index]);
+    prefs.setStringList('ff_pedidosFinalizados',
+        _pedidosFinalizados.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInPedidosFinalizados(
+      int index, OrdensPedidosStruct value) {
+    _pedidosFinalizados.insert(index, value);
+    prefs.setStringList('ff_pedidosFinalizados',
+        _pedidosFinalizados.map((x) => x.serialize()).toList());
   }
 }
 
