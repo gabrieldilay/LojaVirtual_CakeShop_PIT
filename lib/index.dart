@@ -11,4 +11,4 @@ export '/inicio/pedidos_finalizados/pedidos_finalizados_widget.dart'
     show PedidosFinalizadosWidget;
 export '/inicio/pesquisa/pesquisa_widget.dart' show PesquisaWidget;
 export '/dashboard/dashboard_widget.dart' show DashboardWidget;
-export '/login/login_widget.dart' show LoginWidget;
+export '/inicio/login/login_widget.dart' show LoginWidget;

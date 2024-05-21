@@ -401,6 +401,8 @@ class _CarrinhoWidgetState extends State<CarrinhoWidget> {
                                         .titleSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
                                           letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
