@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'home_page_widget.dart' show HomePageWidget;
-import 'package:carousel_slider/carousel_slider.dart';
+import 'pesquisa_widget.dart' show PesquisaWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class PesquisaModel extends FlutterFlowModel<PesquisaWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -13,10 +12,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   TextEditingController? pesquisaTextController;
   String? pesquisaSelectedOption;
   String? Function(BuildContext, String?)? pesquisaTextControllerValidator;
-  // State field(s) for Carousel widget.
-  CarouselController? carouselController;
-
-  int carouselCurrentIndex = 1;
+  List<String> simpleSearchResults = [];
 
   @override
   void initState(BuildContext context) {}

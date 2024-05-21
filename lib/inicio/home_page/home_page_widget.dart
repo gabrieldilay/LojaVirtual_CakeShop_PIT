@@ -1,9 +1,11 @@
 import '/backend/supabase/supabase.dart';
 import '/componentes/detalhes_produtos/detalhes_produtos_widget.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -27,7 +29,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     _model = createModel(context, () => HomePageModel());
 
     _model.pesquisaTextController ??= TextEditingController();
-    _model.pesquisaFocusNode ??= FocusNode();
   }
 
   @override
@@ -616,77 +617,202 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 8.0, 0.0, 8.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.pesquisaTextController,
-                              focusNode: _model.pesquisaFocusNode,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Pesquisa',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: const Color(0xFFFFCDCC),
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFFFF8685),
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                filled: true,
-                                fillColor: const Color(0xFF8FABA3),
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  color: Color(0xFFFFCDCC),
-                                ),
-                                suffixIcon: const Icon(
-                                  Icons.arrow_right_rounded,
-                                  color: Color(0xFFCEF7EB),
-                                ),
+                            child: FutureBuilder<List<ProdutosRow>>(
+                              future: ProdutosTable().queryRows(
+                                queryFn: (q) => q,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              validator: _model.pesquisaTextControllerValidator
-                                  .asValidator(context),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<ProdutosRow> pesquisaProdutosRowList =
+                                    snapshot.data!;
+                                return Autocomplete<String>(
+                                  initialValue: const TextEditingValue(),
+                                  optionsBuilder: (textEditingValue) {
+                                    if (textEditingValue.text == '') {
+                                      return const Iterable<String>.empty();
+                                    }
+                                    return pesquisaProdutosRowList
+                                        .map((e) => e.nomeProduto)
+                                        .withoutNulls
+                                        .toList()
+                                        .where((option) {
+                                      final lowercaseOption =
+                                          option.toLowerCase();
+                                      return lowercaseOption.contains(
+                                          textEditingValue.text.toLowerCase());
+                                    });
+                                  },
+                                  optionsViewBuilder:
+                                      (context, onSelected, options) {
+                                    return AutocompleteOptionsList(
+                                      textFieldKey: _model.pesquisaKey,
+                                      textController:
+                                          _model.pesquisaTextController!,
+                                      options: options.toList(),
+                                      onSelected: onSelected,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      textHighlightStyle: const TextStyle(),
+                                      elevation: 4.0,
+                                      optionBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                      optionHighlightColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      maxHeight: 200.0,
+                                    );
+                                  },
+                                  onSelected: (String selection) {
+                                    setState(() => _model
+                                        .pesquisaSelectedOption = selection);
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  fieldViewBuilder: (
+                                    context,
+                                    textEditingController,
+                                    focusNode,
+                                    onEditingComplete,
+                                  ) {
+                                    _model.pesquisaFocusNode = focusNode;
+
+                                    _model.pesquisaTextController =
+                                        textEditingController;
+                                    return TextFormField(
+                                      key: _model.pesquisaKey,
+                                      controller: textEditingController,
+                                      focusNode: focusNode,
+                                      onEditingComplete: onEditingComplete,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.pesquisaTextController',
+                                        const Duration(milliseconds: 2000),
+                                        () => setState(() {}),
+                                      ),
+                                      onFieldSubmitted: (_) async {
+                                        context.pushNamed(
+                                          'pesquisa',
+                                          queryParameters: {
+                                            'pesquisa': serializeParam(
+                                              _model
+                                                  .pesquisaTextController.text,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      autofocus: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Pesquisa',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color: const Color(0xFFFFCDCC),
+                                              letterSpacing: 0.0,
+                                            ),
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0xFFFF8685),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: const Color(0xFF8FABA3),
+                                        prefixIcon: const Icon(
+                                          Icons.search,
+                                          color: Color(0xFFFFCDCC),
+                                        ),
+                                        suffixIcon: _model
+                                                .pesquisaTextController!
+                                                .text
+                                                .isNotEmpty
+                                            ? InkWell(
+                                                onTap: () async {
+                                                  _model.pesquisaTextController
+                                                      ?.clear();
+                                                  setState(() {});
+                                                },
+                                                child: const Icon(
+                                                  Icons.clear,
+                                                  color: Color(0xFFCEF7EB),
+                                                  size: 22,
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                      validator: _model
+                                          .pesquisaTextControllerValidator
+                                          .asValidator(context),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ),

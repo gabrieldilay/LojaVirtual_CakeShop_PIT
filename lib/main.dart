@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+
+import 'auth/supabase_auth/supabase_user_provider.dart';
+import 'auth/supabase_auth/auth_util.dart';
+
 import '/backend/supabase/supabase.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -40,6 +44,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
+  late Stream<BaseAuthUser> userStream;
+
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
 
@@ -49,6 +55,13 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
+    userStream = cupCakeStorePITSupabaseUserStream()
+      ..listen((user) => _appStateNotifier.update(user));
+    jwtTokenStream.listen((_) {});
+    Future.delayed(
+      const Duration(milliseconds: 1000),
+      () => _appStateNotifier.stopShowingSplashImage(),
+    );
   }
 
   void setThemeMode(ThemeMode mode) => setState(() {
@@ -92,7 +105,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
+  String _currentPageName = 'Ordens_pedidos';
   late Widget? _currentPage;
 
   @override
@@ -118,9 +131,9 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
-        backgroundColor: Colors.white,
-        selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: const Color(0x8A000000),
+        backgroundColor: const Color(0xFFFF8685),
+        selectedItemColor: const Color(0xFFBADED4),
+        unselectedItemColor: FlutterFlowTheme.of(context).primaryText,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
@@ -138,7 +151,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.checklist,
               size: 24.0,
             ),
-            label: 'Home',
+            label: 'Meus Pedidos',
             tooltip: '',
           )
         ],

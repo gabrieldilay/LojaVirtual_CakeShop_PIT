@@ -215,6 +215,8 @@ dynamic deserializeParam<T>(
         switch (T) {
           case ProdutosRow:
             return ProdutosRow(data);
+          case UsersRow:
+            return UsersRow(data);
           case PedidosClienteRow:
             return PedidosClienteRow(data);
           default:
