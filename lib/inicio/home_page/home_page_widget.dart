@@ -1,12 +1,16 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/componentes/detalhes_produtos/detalhes_produtos_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -18,10 +22,13 @@ class HomePageWidget extends StatefulWidget {
   State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>
+    with TickerProviderStateMixin {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -29,6 +36,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     _model = createModel(context, () => HomePageModel());
 
     _model.pesquisaTextController ??= TextEditingController();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(0.0, 0.0),
+            end: const Offset(115.0, 0.0),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -490,6 +519,217 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
+
+                                context.goNamedAuth('Login', context.mounted);
+                              },
+                              text: 'Sair',
+                              options: FFButtonOptions(
+                                height: 40.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 16.0),
+                            child: Container(
+                              width: 250.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF1F4F8),
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: const Color(0xFFE0E3E7),
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          setDarkModeSetting(
+                                              context, ThemeMode.light);
+                                        },
+                                        child: Container(
+                                          width: 115.0,
+                                          height: 100.0,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? Colors.white
+                                                    : const Color(0xFFF1F4F8),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            border: Border.all(
+                                              color: valueOrDefault<Color>(
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? const Color(0xFFE0E3E7)
+                                                    : const Color(0xFFF1F4F8),
+                                                const Color(0xFFE0E3E7),
+                                              ),
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.wb_sunny_rounded,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? const Color(0xFF14181B)
+                                                    : const Color(0xFF57636C),
+                                                size: 16.0,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Light Mode',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? const Color(0xFF14181B)
+                                                            : const Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          setDarkModeSetting(
+                                              context, ThemeMode.dark);
+                                        },
+                                        child: Container(
+                                          width: 115.0,
+                                          height: 100.0,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : const Color(0xFFF1F4F8),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            border: Border.all(
+                                              color: valueOrDefault<Color>(
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? const Color(0xFFE0E3E7)
+                                                    : const Color(0xFFF1F4F8),
+                                                const Color(0xFFF1F4F8),
+                                              ),
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.nightlight_round,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? const Color(0xFF14181B)
+                                                    : const Color(0xFF57636C),
+                                                size: 16.0,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Dark Mode',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.dark
+                                                            ? const Color(0xFF14181B)
+                                                            : const Color(0xFF57636C),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ).animateOnActionTrigger(
+                                        animationsMap[
+                                            'containerOnActionTriggerAnimation']!,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ],

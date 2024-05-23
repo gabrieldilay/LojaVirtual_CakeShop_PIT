@@ -621,7 +621,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                     ],
                                                     obscureText: false,
                                                     decoration: InputDecoration(
-                                                      labelText: 'Nome\n',
+                                                      labelText: 'Nome',
                                                       labelStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
