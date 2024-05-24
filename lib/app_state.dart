@@ -174,6 +174,12 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_pedidosFinalizados',
         _pedidosFinalizados.map((x) => x.serialize()).toList());
   }
+
+  String _menucondicao = 'Caixas';
+  String get menucondicao => _menucondicao;
+  set menucondicao(String value) {
+    _menucondicao = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

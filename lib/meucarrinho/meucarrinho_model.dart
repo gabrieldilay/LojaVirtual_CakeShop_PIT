@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'especiais_widget.dart' show EspeciaisWidget;
+import 'meucarrinho_widget.dart' show MeucarrinhoWidget;
 import 'package:flutter/material.dart';
 
-class EspeciaisModel extends FlutterFlowModel<EspeciaisWidget> {
+class MeucarrinhoModel extends FlutterFlowModel<MeucarrinhoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

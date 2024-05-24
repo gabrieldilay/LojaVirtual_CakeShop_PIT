@@ -9,7 +9,6 @@ import '/backend/schema/structs/index.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -76,72 +75,48 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+          appStateNotifier.loggedIn ? const HomePageWidget() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+              appStateNotifier.loggedIn ? const HomePageWidget() : const LoginWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'HomePage')
-              : const HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'Carrinho',
-          path: '/carrinho',
-          builder: (context, params) => const CarrinhoWidget(),
-        ),
-        FFRoute(
-          name: 'Ordens_pedidos',
-          path: '/ordensPedidos',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Ordens_pedidos')
-              : const OrdensPedidosWidget(),
-        ),
-        FFRoute(
-          name: 'tradicionais',
-          path: '/tradicionais',
-          builder: (context, params) => const TradicionaisWidget(),
-        ),
-        FFRoute(
-          name: 'especiais',
-          path: '/especiais',
-          builder: (context, params) => const EspeciaisWidget(),
-        ),
-        FFRoute(
-          name: 'bebidas',
-          path: '/bebidas',
-          builder: (context, params) => const BebidasWidget(),
-        ),
-        FFRoute(
-          name: 'pedidos_finalizados',
-          path: '/pedidosFinalizados',
-          builder: (context, params) => const PedidosFinalizadosWidget(),
-        ),
-        FFRoute(
-          name: 'pesquisa',
-          path: '/pesquisa',
-          builder: (context, params) => PesquisaWidget(
-            pesquisa: params.getParam(
-              'pesquisa',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'Dashboard',
-          path: '/dashboard',
-          builder: (context, params) => const DashboardWidget(),
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'Login',
           path: '/login',
           builder: (context, params) => const LoginWidget(),
+        ),
+        FFRoute(
+          name: 'caixa2sab8cakes',
+          path: '/caixa2sab8cakes',
+          builder: (context, params) => const Caixa2sab8cakesWidget(),
+        ),
+        FFRoute(
+          name: 'meucarrinho',
+          path: '/meucarrinho',
+          builder: (context, params) => const MeucarrinhoWidget(),
+        ),
+        FFRoute(
+          name: 'pagamento',
+          path: '/pagamento',
+          builder: (context, params) => const PagamentoWidget(),
+        ),
+        FFRoute(
+          name: 'MeusPedidos',
+          path: '/meusPedidos',
+          builder: (context, params) => const MeusPedidosWidget(),
+        ),
+        FFRoute(
+          name: 'pesquisa',
+          path: '/pesquisa',
+          builder: (context, params) => const PesquisaWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

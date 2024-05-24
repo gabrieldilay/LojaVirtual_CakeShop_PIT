@@ -12,13 +12,16 @@ import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
-double soma(
-  double num1,
-  double num2,
-) {
-  return num1 * num2;
-}
-
-double subtracao(double valor1) {
-  return valor1 * -1;
+String saudacao() {
+  var hour = DateTime.now().hour;
+  if (hour < 4) {
+    return 'Vai dormir, ';
+  }
+  if (hour < 12) {
+    return 'Bom dia, ';
+  }
+  if (hour < 17) {
+    return 'Boa tarde, ';
+  }
+  return 'Boa Noite, ';
 }

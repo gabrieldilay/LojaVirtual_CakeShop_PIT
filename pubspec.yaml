@@ -29,9 +29,8 @@ dependencies:
   auto_size_text: 3.0.0
   badges: 2.0.2
   cached_network_image: 3.3.1
-  carousel_slider: 4.2.1
   collection: 1.18.0
-  easy_debounce: 2.0.1
+  expandable: 5.0.1
   flutter_animate: 4.1.1+1
   flutter_cache_manager: 3.3.1
   flutter_credit_card: 3.0.6
@@ -63,10 +62,8 @@ dependencies:
   sign_in_with_apple_web: 1.0.1
   sqflite: 2.2.6
   storage_client: 1.5.4
-  substring_highlight: 1.0.33
   supabase: 1.11.11
   supabase_flutter: 1.10.24
-  text_search: 1.0.1
   timeago: 3.2.2
   url_launcher: 6.2.5
   url_launcher_android: 6.3.0

@@ -1,9 +1,9 @@
 import '/flutter_flow/flutter_flow_credit_card_form.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'carrinho_widget.dart' show CarrinhoWidget;
+import 'pagamento_widget.dart' show PagamentoWidget;
 import 'package:flutter/material.dart';
 
-class CarrinhoModel extends FlutterFlowModel<CarrinhoWidget> {
+class PagamentoModel extends FlutterFlowModel<PagamentoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
