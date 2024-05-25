@@ -7,3 +7,5 @@ export '/meucarrinho/meucarrinho_widget.dart' show MeucarrinhoWidget;
 export '/pagamento/pagamento_widget.dart' show PagamentoWidget;
 export '/meus_pedidos/meus_pedidos_widget.dart' show MeusPedidosWidget;
 export '/pesquisa/pesquisa_widget.dart' show PesquisaWidget;
+export '/detalhes_produtos/detalhes_produtos_widget.dart'
+    show DetalhesProdutosWidget;

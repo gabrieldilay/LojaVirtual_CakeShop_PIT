@@ -1,8 +1,11 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'caixa2sab8cakes_model.dart';
 export 'caixa2sab8cakes_model.dart';
 
@@ -38,6 +41,8 @@ class _Caixa2sab8cakesWidgetState extends State<Caixa2sab8cakesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -253,77 +258,274 @@ class _Caixa2sab8cakesWidgetState extends State<Caixa2sab8cakesWidget> {
                                               ],
                                             ),
                                             collapsed: Container(),
-                                            expanded: Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: ListView(
-                                                padding: EdgeInsets.zero,
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(10.0),
-                                                    child: Card(
-                                                      clipBehavior: Clip
-                                                          .antiAliasWithSaveLayer,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      elevation: 4.0,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                'Nome Produto',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      fontSize:
-                                                                          18.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                'R\$ 20,90',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      fontSize:
-                                                                          18.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
+                                            expanded: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: FutureBuilder<
+                                                      List<ProdutosRow>>(
+                                                    future: ProdutosTable()
+                                                        .queryRows(
+                                                      queryFn: (q) => q.in_(
+                                                        'tag',
+                                                        ['trad', 'esp'],
+                                                      ).order('valor'),
                                                     ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      List<ProdutosRow>
+                                                          listViewProdutosRowList =
+                                                          snapshot.data!;
+                                                      return ListView.builder(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            listViewProdutosRowList
+                                                                .length,
+                                                        itemBuilder: (context,
+                                                            listViewIndex) {
+                                                          final listViewProdutosRow =
+                                                              listViewProdutosRowList[
+                                                                  listViewIndex];
+                                                          return Padding(
+                                                            padding:
+                                                                const EdgeInsets.all(
+                                                                    10.0),
+                                                            child: InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                setState(() {
+                                                                  FFAppState()
+                                                                      .updateSaboresStruct(
+                                                                    (e) => e
+                                                                      ..nomesabor1 =
+                                                                          listViewProdutosRow
+                                                                              .nomeProduto
+                                                                      ..precosabor1 =
+                                                                          listViewProdutosRow
+                                                                              .valor,
+                                                                  );
+                                                                });
+                                                              },
+                                                              child: Card(
+                                                                clipBehavior: Clip
+                                                                    .antiAliasWithSaveLayer,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                elevation: 4.0,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            valueOrDefault<String>(
+                                                                              listViewProdutosRow.nomeProduto,
+                                                                              'nome',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  fontSize: 18.0,
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          ),
+                                                                          Text(
+                                                                            formatNumber(
+                                                                              (listViewProdutosRow.valor!) * 0.8,
+                                                                              formatType: FormatType.decimal,
+                                                                              decimalType: DecimalType.commaDecimal,
+                                                                              currency: 'R\$',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  fontSize: 18.0,
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        FFAppState()
+                                                            .sabores
+                                                            .nomesabor1,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                      ),
+                                                      Text(
+                                                        formatNumber(
+                                                          FFAppState()
+                                                              .sabores
+                                                              .precosabor1,
+                                                          formatType: FormatType
+                                                              .decimal,
+                                                          decimalType:
+                                                              DecimalType
+                                                                  .commaDecimal,
+                                                          currency: 'R\$',
+                                                        ),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      FFButtonWidget(
+                                                        onPressed: () {
+                                                          print(
+                                                              'Button pressed ...');
+                                                        },
+                                                        text: 'Alterar Sabor',
+                                                        options:
+                                                            FFButtonOptions(
+                                                          height: 35.0,
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      24.0,
+                                                                      0.0,
+                                                                      24.0,
+                                                                      0.0),
+                                                          iconPadding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                          elevation: 3.0,
+                                                          borderSide:
+                                                              const BorderSide(
+                                                            color: Colors
+                                                                .transparent,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             theme: ExpandableThemeData(
                                               tapHeaderToExpand: true,

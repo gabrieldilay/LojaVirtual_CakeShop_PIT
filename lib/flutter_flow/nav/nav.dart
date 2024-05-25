@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
 
+import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -117,6 +118,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'pesquisa',
           path: '/pesquisa',
           builder: (context, params) => const PesquisaWidget(),
+        ),
+        FFRoute(
+          name: 'detalhes_produtos',
+          path: '/detalhesProdutos',
+          builder: (context, params) => DetalhesProdutosWidget(
+            detalhesProdutos: params.getParam<ProdutosRow>(
+              'detalhesProdutos',
+              ParamType.SupabaseRow,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

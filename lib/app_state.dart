@@ -180,6 +180,23 @@ class FFAppState extends ChangeNotifier {
   set menucondicao(String value) {
     _menucondicao = value;
   }
+
+  int _quantidade = 1;
+  int get quantidade => _quantidade;
+  set quantidade(int value) {
+    _quantidade = value;
+  }
+
+  SaboresRefStruct _sabores = SaboresRefStruct.fromSerializableMap(jsonDecode(
+      '{\"nomesabor1\":\"nome\",\"nomesabor2\":\"nome\",\"nomesabor3\":\"nome\",\"nomesabor4\":\"nome\",\"precosabor1\":\"0.0\",\"precosabor2\":\"0.0\",\"precosabor3\":\"0.0\",\"precosabor4\":\"0.0\"}'));
+  SaboresRefStruct get sabores => _sabores;
+  set sabores(SaboresRefStruct value) {
+    _sabores = value;
+  }
+
+  void updateSaboresStruct(Function(SaboresRefStruct) updateFn) {
+    updateFn(_sabores);
+  }
 }
 
 void _safeInit(Function() initializeField) {

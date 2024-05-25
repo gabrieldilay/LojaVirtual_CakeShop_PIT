@@ -1753,137 +1753,173 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     12.0,
                                                                     6.0,
                                                                     0.0),
-                                                        child: Material(
-                                                          color: Colors
+                                                        child: InkWell(
+                                                          splashColor: Colors
                                                               .transparent,
-                                                          elevation: 6.0,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0),
-                                                          ),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 120.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'detalhes_produtos',
+                                                              queryParameters: {
+                                                                'detalhesProdutos':
+                                                                    serializeParam(
+                                                                  columnProdutosRow,
+                                                                  ParamType
+                                                                      .SupabaseRow,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    const TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                                ),
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            elevation: 6.0,
+                                                            shape:
+                                                                RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           16.0),
                                                             ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          6.0,
-                                                                          6.0,
-                                                                          3.0,
-                                                                          6.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxjdXBjYWtlfGVufDB8fHx8MTcxNjQ3OTg0NXww&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                      width:
-                                                                          70.0,
-                                                                      height:
-                                                                          70.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              10.0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  columnProdutosRow.nomeProduto,
-                                                                                  'nome produto',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  columnProdutosRow.descricao,
-                                                                                  'descricao',
-                                                                                ).maybeHandleOverflow(
-                                                                                  maxChars: 100,
-                                                                                  replacement: '…',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                      fontSize: 13.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                formatNumber(
-                                                                                  columnProdutosRow.valor!,
-                                                                                  formatType: FormatType.decimal,
-                                                                                  decimalType: DecimalType.commaDecimal,
-                                                                                  currency: 'R\$',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                      fontSize: 15.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                            child: Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 125.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            6.0,
+                                                                            6.0,
+                                                                            3.0,
+                                                                            6.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                      child: Image
+                                                                          .network(
+                                                                        columnProdutosRow
+                                                                            .img!,
+                                                                        width:
+                                                                            70.0,
+                                                                        height:
+                                                                            70.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                    Expanded(
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
+                                                                                  valueOrDefault<String>(
+                                                                                    columnProdutosRow.nomeProduto,
+                                                                                    'nome produto',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        fontSize: 18.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                      ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      columnProdutosRow.descricao,
+                                                                                      'descricao',
+                                                                                    ).maybeHandleOverflow(
+                                                                                      maxChars: 100,
+                                                                                      replacement: '…',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Readex Pro',
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 13.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
+                                                                                  formatNumber(
+                                                                                    columnProdutosRow.valor!,
+                                                                                    formatType: FormatType.decimal,
+                                                                                    decimalType: DecimalType.commaDecimal,
+                                                                                    currency: 'R\$',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        fontSize: 15.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                      ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -2030,135 +2066,170 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     12.0,
                                                                     6.0,
                                                                     0.0),
-                                                        child: Material(
-                                                          color: Colors
+                                                        child: InkWell(
+                                                          splashColor: Colors
                                                               .transparent,
-                                                          elevation: 6.0,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0),
-                                                          ),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'detalhes_produtos',
+                                                              queryParameters: {
+                                                                'detalhesProdutos':
+                                                                    serializeParam(
+                                                                  columnProdutosRow,
+                                                                  ParamType
+                                                                      .SupabaseRow,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    const TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                                ),
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            elevation: 6.0,
+                                                            shape:
+                                                                RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           16.0),
                                                             ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          6.0,
-                                                                          6.0,
-                                                                          3.0,
-                                                                          6.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxjdXBjYWtlfGVufDB8fHx8MTcxNjQ3OTg0NXww&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                      width:
-                                                                          70.0,
-                                                                      height:
-                                                                          70.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
+                                                            child: Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 125.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            6.0,
+                                                                            6.0,
+                                                                            3.0,
+                                                                            6.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                      child: Image
+                                                                          .network(
+                                                                        columnProdutosRow
+                                                                            .img!,
+                                                                        width:
+                                                                            70.0,
+                                                                        height:
+                                                                            70.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              10.0),
+                                                                    Expanded(
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  columnProdutosRow.nomeProduto,
-                                                                                  'nome produto',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Expanded(
-                                                                                child: Text(
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
                                                                                   valueOrDefault<String>(
-                                                                                    columnProdutosRow.descricao,
-                                                                                    'descricao',
+                                                                                    columnProdutosRow.nomeProduto,
+                                                                                    'nome produto',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        fontSize: 18.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                      ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      columnProdutosRow.descricao,
+                                                                                      'descricao',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Readex Pro',
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 13.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
+                                                                                  formatNumber(
+                                                                                    columnProdutosRow.valor!,
+                                                                                    formatType: FormatType.decimal,
+                                                                                    decimalType: DecimalType.commaDecimal,
+                                                                                    currency: 'R\$',
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Readex Pro',
                                                                                         color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                        fontSize: 13.0,
+                                                                                        fontSize: 15.0,
                                                                                         letterSpacing: 0.0,
                                                                                       ),
                                                                                 ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                formatNumber(
-                                                                                  columnProdutosRow.valor!,
-                                                                                  formatType: FormatType.decimal,
-                                                                                  decimalType: DecimalType.commaDecimal,
-                                                                                  currency: 'R\$',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                      fontSize: 15.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -2305,135 +2376,170 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     12.0,
                                                                     6.0,
                                                                     0.0),
-                                                        child: Material(
-                                                          color: Colors
+                                                        child: InkWell(
+                                                          splashColor: Colors
                                                               .transparent,
-                                                          elevation: 6.0,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0),
-                                                          ),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'detalhes_produtos',
+                                                              queryParameters: {
+                                                                'detalhesProdutos':
+                                                                    serializeParam(
+                                                                  columnProdutosRow,
+                                                                  ParamType
+                                                                      .SupabaseRow,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    const TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          0),
+                                                                ),
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            elevation: 6.0,
+                                                            shape:
+                                                                RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           16.0),
                                                             ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          6.0,
-                                                                          6.0,
-                                                                          3.0,
-                                                                          6.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxjdXBjYWtlfGVufDB8fHx8MTcxNjQ3OTg0NXww&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                      width:
-                                                                          70.0,
-                                                                      height:
-                                                                          70.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
+                                                            child: Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 125.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            6.0,
+                                                                            6.0,
+                                                                            3.0,
+                                                                            6.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                      child: Image
+                                                                          .network(
+                                                                        columnProdutosRow
+                                                                            .img!,
+                                                                        width:
+                                                                            70.0,
+                                                                        height:
+                                                                            70.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              10.0),
+                                                                    Expanded(
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  columnProdutosRow.nomeProduto,
-                                                                                  'nome produto',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Expanded(
-                                                                                child: Text(
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
                                                                                   valueOrDefault<String>(
-                                                                                    columnProdutosRow.descricao,
-                                                                                    'descricao',
+                                                                                    columnProdutosRow.nomeProduto,
+                                                                                    'nome produto',
+                                                                                  ),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Readex Pro',
+                                                                                        fontSize: 18.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                      ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      columnProdutosRow.descricao,
+                                                                                      'descricao',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Readex Pro',
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 13.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
+                                                                                  formatNumber(
+                                                                                    columnProdutosRow.valor!,
+                                                                                    formatType: FormatType.decimal,
+                                                                                    decimalType: DecimalType.commaDecimal,
+                                                                                    currency: 'R\$',
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Readex Pro',
                                                                                         color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                        fontSize: 13.0,
+                                                                                        fontSize: 15.0,
                                                                                         letterSpacing: 0.0,
                                                                                       ),
                                                                                 ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                formatNumber(
-                                                                                  columnProdutosRow.valor!,
-                                                                                  formatType: FormatType.decimal,
-                                                                                  decimalType: DecimalType.commaDecimal,
-                                                                                  currency: 'R\$',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                      fontSize: 15.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
