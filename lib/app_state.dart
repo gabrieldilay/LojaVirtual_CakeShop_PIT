@@ -19,21 +19,6 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
     _safeInit(() {
-      _pedido = prefs
-              .getStringList('ff_pedido')
-              ?.map((x) {
-                try {
-                  return PedidoStruct.fromSerializableMap(jsonDecode(x));
-                } catch (e) {
-                  print("Can't decode persisted data type. Error: $e.");
-                  return null;
-                }
-              })
-              .withoutNulls
-              .toList() ??
-          _pedido;
-    });
-    _safeInit(() {
       _addCarrinho = prefs.getDouble('ff_addCarrinho') ?? _addCarrinho;
     });
     _safeInit(() {
@@ -57,6 +42,27 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _pedidosFinalizados;
     });
+    _safeInit(() {
+      _numeroCarrinho = prefs.getInt('ff_numeroCarrinho') ?? _numeroCarrinho;
+    });
+    _safeInit(() {
+      _pedidosCar = prefs
+              .getStringList('ff_pedidosCar')
+              ?.map((x) {
+                try {
+                  return PedidosStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _pedidosCar;
+    });
+    _safeInit(() {
+      _precoTotal = prefs.getDouble('ff_precoTotal') ?? _precoTotal;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -65,46 +71,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late SharedPreferences prefs;
-
-  List<PedidoStruct> _pedido = [];
-  List<PedidoStruct> get pedido => _pedido;
-  set pedido(List<PedidoStruct> value) {
-    _pedido = value;
-    prefs.setStringList('ff_pedido', value.map((x) => x.serialize()).toList());
-  }
-
-  void addToPedido(PedidoStruct value) {
-    _pedido.add(value);
-    prefs.setStringList(
-        'ff_pedido', _pedido.map((x) => x.serialize()).toList());
-  }
-
-  void removeFromPedido(PedidoStruct value) {
-    _pedido.remove(value);
-    prefs.setStringList(
-        'ff_pedido', _pedido.map((x) => x.serialize()).toList());
-  }
-
-  void removeAtIndexFromPedido(int index) {
-    _pedido.removeAt(index);
-    prefs.setStringList(
-        'ff_pedido', _pedido.map((x) => x.serialize()).toList());
-  }
-
-  void updatePedidoAtIndex(
-    int index,
-    PedidoStruct Function(PedidoStruct) updateFn,
-  ) {
-    _pedido[index] = updateFn(_pedido[index]);
-    prefs.setStringList(
-        'ff_pedido', _pedido.map((x) => x.serialize()).toList());
-  }
-
-  void insertAtIndexInPedido(int index, PedidoStruct value) {
-    _pedido.insert(index, value);
-    prefs.setStringList(
-        'ff_pedido', _pedido.map((x) => x.serialize()).toList());
-  }
 
   double _addCarrinho = 0.0;
   double get addCarrinho => _addCarrinho;
@@ -196,6 +162,67 @@ class FFAppState extends ChangeNotifier {
 
   void updateSaboresStruct(Function(SaboresRefStruct) updateFn) {
     updateFn(_sabores);
+  }
+
+  int _condicaoGeral = 0;
+  int get condicaoGeral => _condicaoGeral;
+  set condicaoGeral(int value) {
+    _condicaoGeral = value;
+  }
+
+  int _numeroCarrinho = 0;
+  int get numeroCarrinho => _numeroCarrinho;
+  set numeroCarrinho(int value) {
+    _numeroCarrinho = value;
+    prefs.setInt('ff_numeroCarrinho', value);
+  }
+
+  List<PedidosStruct> _pedidosCar = [];
+  List<PedidosStruct> get pedidosCar => _pedidosCar;
+  set pedidosCar(List<PedidosStruct> value) {
+    _pedidosCar = value;
+    prefs.setStringList(
+        'ff_pedidosCar', value.map((x) => x.serialize()).toList());
+  }
+
+  void addToPedidosCar(PedidosStruct value) {
+    _pedidosCar.add(value);
+    prefs.setStringList(
+        'ff_pedidosCar', _pedidosCar.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromPedidosCar(PedidosStruct value) {
+    _pedidosCar.remove(value);
+    prefs.setStringList(
+        'ff_pedidosCar', _pedidosCar.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromPedidosCar(int index) {
+    _pedidosCar.removeAt(index);
+    prefs.setStringList(
+        'ff_pedidosCar', _pedidosCar.map((x) => x.serialize()).toList());
+  }
+
+  void updatePedidosCarAtIndex(
+    int index,
+    PedidosStruct Function(PedidosStruct) updateFn,
+  ) {
+    _pedidosCar[index] = updateFn(_pedidosCar[index]);
+    prefs.setStringList(
+        'ff_pedidosCar', _pedidosCar.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInPedidosCar(int index, PedidosStruct value) {
+    _pedidosCar.insert(index, value);
+    prefs.setStringList(
+        'ff_pedidosCar', _pedidosCar.map((x) => x.serialize()).toList());
+  }
+
+  double _precoTotal = 0.0;
+  double get precoTotal => _precoTotal;
+  set precoTotal(double value) {
+    _precoTotal = value;
+    prefs.setDouble('ff_precoTotal', value);
   }
 }
 

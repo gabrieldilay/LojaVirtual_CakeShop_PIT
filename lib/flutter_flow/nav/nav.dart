@@ -128,6 +128,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.SupabaseRow,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'caixaPequena',
+          path: '/caixaPequena',
+          builder: (context, params) => const CaixaPequenaWidget(),
+        ),
+        FFRoute(
+          name: 'caixaGrande',
+          path: '/caixaGrande',
+          builder: (context, params) => const CaixaGrandeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

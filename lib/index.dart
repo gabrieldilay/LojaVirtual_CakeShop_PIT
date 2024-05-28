@@ -9,3 +9,5 @@ export '/meus_pedidos/meus_pedidos_widget.dart' show MeusPedidosWidget;
 export '/pesquisa/pesquisa_widget.dart' show PesquisaWidget;
 export '/detalhes_produtos/detalhes_produtos_widget.dart'
     show DetalhesProdutosWidget;
+export '/caixa_pequena/caixa_pequena_widget.dart' show CaixaPequenaWidget;
+export '/caixa_grande/caixa_grande_widget.dart' show CaixaGrandeWidget;

@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'meus_pedidos_model.dart';
 export 'meus_pedidos_model.dart';
 
@@ -34,6 +35,8 @@ class _MeusPedidosWidgetState extends State<MeusPedidosWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -311,10 +314,10 @@ class _MeusPedidosWidgetState extends State<MeusPedidosWidget> {
                     width: double.infinity,
                     height: 70.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: const Color(0xFFBADED4),
                       borderRadius: BorderRadius.circular(16.0),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).secondaryText,
+                        color: const Color(0xFFFF8685),
                         width: 1.0,
                       ),
                     ),
@@ -322,40 +325,44 @@ class _MeusPedidosWidgetState extends State<MeusPedidosWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.home_outlined,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: Colors.white,
                           size: 35.0,
                         ),
                         Icon(
                           Icons.search_sharp,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           size: 35.0,
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Stack(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.shopping_cart_outlined,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: Colors.white,
                                   size: 35.0,
                                 ),
-                                Align(
-                                  alignment: const AlignmentDirectional(1.0, -1.0),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      40.0, 0.0, 0.0, 0.0),
                                   child: badges.Badge(
                                     badgeContent: Text(
-                                      '1',
+                                      formatNumber(
+                                        FFAppState().numeroCarrinho,
+                                        formatType: FormatType.custom,
+                                        format: '',
+                                        locale: '',
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
                                             fontFamily: 'Readex Pro',
                                             color: Colors.white,
+                                            fontSize: 12.0,
                                             letterSpacing: 0.0,
                                           ),
                                     ),
@@ -370,19 +377,15 @@ class _MeusPedidosWidgetState extends State<MeusPedidosWidget> {
                                     animationType:
                                         badges.BadgeAnimationType.scale,
                                     toAnimate: true,
-                                    child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(1.0, -1.0),
-                                      child: Text(
-                                        '1',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
+                                    child: Text(
+                                      '1',
+                                      textAlign: TextAlign.justify,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -390,14 +393,15 @@ class _MeusPedidosWidgetState extends State<MeusPedidosWidget> {
                             ),
                           ],
                         ),
-                        Icon(
+                        const Icon(
                           Icons.history,
-                          color: FlutterFlowTheme.of(context).tertiary,
+                          color: Color(0xFFFF8685),
                           size: 55.0,
                         ),
                         Icon(
                           Icons.person_outline,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           size: 35.0,
                         ),
                       ],

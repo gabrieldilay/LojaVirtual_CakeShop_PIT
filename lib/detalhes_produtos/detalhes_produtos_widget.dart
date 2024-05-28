@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -95,22 +96,32 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      elevation: 4.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(6.0),
-                                        child: Icon(
-                                          Icons.chevron_left,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24.0,
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.safePop();
+                                      },
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        elevation: 4.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: Icon(
+                                            Icons.chevron_left,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24.0,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -195,31 +206,6 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                                         fontWeight: FontWeight.w300,
                                       ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 10.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                valueOrDefault<String>(
-                                  widget.detalhesProdutos?.tag,
-                                  'tag',
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FontStyle.italic,
-                                    ),
                               ),
                             ],
                           ),
@@ -328,43 +314,59 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                           ],
                         ),
                       ),
-                      Container(
-                        width: 199.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF8FABA3),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 6.0, 0.0),
-                              child: Text(
-                                'Adicionar',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.0,
-                                    ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          setState(() {
+                            FFAppState().precoTotal = FFAppState().precoTotal +
+                                ((widget.detalhesProdutos!.valor!) *
+                                    FFAppState().quantidade);
+                          });
+                          setState(() {
+                            FFAppState().addToPedidosCar(PedidosStruct(
+                              nomeProduto: widget.detalhesProdutos?.nomeProduto,
+                              img: widget.detalhesProdutos?.img,
+                              quantidade: FFAppState().quantidade,
+                              precoTotal: widget.detalhesProdutos?.valor,
+                            ));
+                            FFAppState().quantidade = 1;
+                            FFAppState().condicaoGeral = 0;
+                            FFAppState().sabores =
+                                SaboresRefStruct.fromSerializableMap(jsonDecode(
+                                    '{\"nomesabor1\":\"nome\",\"nomesabor2\":\"nome\",\"nomesabor3\":\"nome\",\"nomesabor4\":\"nome\",\"precosabor1\":\"0.0\",\"precosabor2\":\"0.0\",\"precosabor3\":\"0.0\",\"precosabor4\":\"0.0\"}'));
+                            FFAppState().numeroCarrinho =
+                                FFAppState().numeroCarrinho + 1;
+                          });
+
+                          context.goNamed(
+                            'meucarrinho',
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: const TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.leftToRight,
                               ),
-                            ),
-                            Expanded(
-                              child: Padding(
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: 199.0,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF8FABA3),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 0.0, 8.0, 0.0),
+                                    8.0, 0.0, 6.0, 0.0),
                                 child: Text(
-                                  formatNumber(
-                                    (widget.detalhesProdutos!.valor!) *
-                                        FFAppState().quantidade,
-                                    formatType: FormatType.decimal,
-                                    decimalType: DecimalType.commaDecimal,
-                                    currency: 'R\$',
-                                  ),
+                                  'Adicionar',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -374,8 +376,30 @@ class _DetalhesProdutosWidgetState extends State<DetalhesProdutosWidget> {
                                       ),
                                 ),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      4.0, 0.0, 8.0, 0.0),
+                                  child: Text(
+                                    formatNumber(
+                                      (widget.detalhesProdutos!.valor!) *
+                                          FFAppState().quantidade,
+                                      formatType: FormatType.decimal,
+                                      decimalType: DecimalType.commaDecimal,
+                                      currency: 'R\$',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
