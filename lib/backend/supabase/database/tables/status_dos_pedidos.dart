@@ -29,4 +29,7 @@ class StatusDosPedidosRow extends SupabaseDataRow {
 
   double? get precoTotal => getField<double>('preco_total');
   set precoTotal(double? value) => setField<double>('preco_total', value);
+
+  String? get enderecoUser => getField<String>('endereco_user');
+  set enderecoUser(String? value) => setField<String>('endereco_user', value);
 }

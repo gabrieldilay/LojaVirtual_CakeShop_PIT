@@ -138,6 +138,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'caixaGrande',
           path: '/caixaGrande',
           builder: (context, params) => const CaixaGrandeWidget(),
+        ),
+        FFRoute(
+          name: 'perfil',
+          path: '/perfil',
+          builder: (context, params) => const PerfilWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

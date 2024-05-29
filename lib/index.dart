@@ -11,3 +11,4 @@ export '/detalhes_produtos/detalhes_produtos_widget.dart'
     show DetalhesProdutosWidget;
 export '/caixa_pequena/caixa_pequena_widget.dart' show CaixaPequenaWidget;
 export '/caixa_grande/caixa_grande_widget.dart' show CaixaGrandeWidget;
+export '/perfil/perfil_widget.dart' show PerfilWidget;

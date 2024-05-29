@@ -224,6 +224,32 @@ class FFAppState extends ChangeNotifier {
     _precoTotal = value;
     prefs.setDouble('ff_precoTotal', value);
   }
+
+  EnderecosStruct _enderecoRef = EnderecosStruct();
+  EnderecosStruct get enderecoRef => _enderecoRef;
+  set enderecoRef(EnderecosStruct value) {
+    _enderecoRef = value;
+  }
+
+  void updateEnderecoRefStruct(Function(EnderecosStruct) updateFn) {
+    updateFn(_enderecoRef);
+  }
+
+  String _statusPAG = 'Nenhum';
+  String get statusPAG => _statusPAG;
+  set statusPAG(String value) {
+    _statusPAG = value;
+  }
+
+  PixPagStruct _pagPixRef = PixPagStruct();
+  PixPagStruct get pagPixRef => _pagPixRef;
+  set pagPixRef(PixPagStruct value) {
+    _pagPixRef = value;
+  }
+
+  void updatePagPixRefStruct(Function(PixPagStruct) updateFn) {
+    updateFn(_pagPixRef);
+  }
 }
 
 void _safeInit(Function() initializeField) {

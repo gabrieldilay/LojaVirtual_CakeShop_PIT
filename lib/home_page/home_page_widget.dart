@@ -2435,7 +2435,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Material(
                 color: Colors.transparent,
                 elevation: 20.0,
@@ -2462,10 +2462,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         color: Color(0xFFFF8685),
                         size: 55.0,
                       ),
-                      Icon(
-                        Icons.search_sharp,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 35.0,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('pesquisa');
+                        },
+                        child: Icon(
+                          Icons.search_sharp,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          size: 35.0,
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -2534,15 +2544,35 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ],
                       ),
-                      Icon(
-                        Icons.history,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 35.0,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('MeusPedidos');
+                        },
+                        child: Icon(
+                          Icons.history,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          size: 35.0,
+                        ),
                       ),
-                      Icon(
-                        Icons.person_outline,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        size: 35.0,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('perfil');
+                        },
+                        child: Icon(
+                          Icons.person_outline,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          size: 35.0,
+                        ),
                       ),
                     ],
                   ),
