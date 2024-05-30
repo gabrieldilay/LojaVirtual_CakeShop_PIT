@@ -1,4 +1,4 @@
-# CupCakeStorePIT
+# Projeto Integrador Transdisciplinar em Engenharia de Software II - UNICID - Cruzeiro do Sul Virtual
 
 A new Flutter project.
 
