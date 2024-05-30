@@ -143,6 +143,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'perfil',
           path: '/perfil',
           builder: (context, params) => const PerfilWidget(),
+        ),
+        FFRoute(
+          name: 'Dashboard',
+          path: '/dashboard',
+          builder: (context, params) => const DashboardWidget(),
+        ),
+        FFRoute(
+          name: 'dashPedidos',
+          path: '/dashPedidos',
+          builder: (context, params) => const DashPedidosWidget(),
+        ),
+        FFRoute(
+          name: 'dashProdutos',
+          path: '/dashProdutos',
+          builder: (context, params) => const DashProdutosWidget(),
+        ),
+        FFRoute(
+          name: 'dashTrad',
+          path: '/dashTrad',
+          builder: (context, params) => const DashTradWidget(),
+        ),
+        FFRoute(
+          name: 'dashBebidas',
+          path: '/dashBebidas',
+          builder: (context, params) => const DashBebidasWidget(),
+        ),
+        FFRoute(
+          name: 'dashHistorico',
+          path: '/dashHistorico',
+          builder: (context, params) => const DashHistoricoWidget(),
+        ),
+        FFRoute(
+          name: 'dashEsp',
+          path: '/dashEsp',
+          builder: (context, params) => const DashEspWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

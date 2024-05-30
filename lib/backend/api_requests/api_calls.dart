@@ -141,6 +141,129 @@ class StatusPixCall {
       ));
 }
 
+class PagViaCartaoPAGBANKCall {
+  static Future<ApiCallResponse> call({
+    String? numberCard = '',
+    int? expYear,
+    int? expMonth,
+    String? nomeImpreCard = '',
+    String? securityCode = '',
+    int? valorProduto,
+    String? nomeProduto = '',
+    String? refItem = '',
+    String? refId = '',
+    String? numeroCelular = '',
+    String? dd = '',
+    String? cpf = '',
+    String? emailCliente = '',
+    String? nomeCliente = '',
+    String? token = '',
+    String? randow = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "customer": {
+    "name": "$nomeCliente",
+    "email": "$emailCliente",
+    "tax_id": "$cpf",
+    "phones": [
+      {
+        "country": "55",
+        "area": "$dd",
+        "number": "$numeroCelular",
+        "type": "MOBILE"
+      }
+    ]
+  },
+  "shipping": {
+    "address": {
+      "street": "Avenida Brigadeiro Faria Lima",
+      "number": "1384",
+      "complement": "apto 12",
+      "locality": "Pinheiros",
+      "city": "São Paulo",
+      "region_code": "SP",
+      "country": "BRA",
+      "postal_code": "01452002"
+    }
+  },
+  "reference_id": "$refId",
+  "items": [
+    {
+      "reference_id": "$refItem",
+      "name": "$nomeProduto",
+      "quantity": 1,
+      "unit_amount": $valorProduto
+    }
+  ],
+  "charges": [
+    {
+      "reference_id": "$nomeProduto",
+      "description": "itens",
+      "amount": {
+        "value": $valorProduto,
+        "currency": "BRL"
+      },
+      "payment_method": {
+        "type": "CREDIT_CARD",
+        "installments": 1,
+        "capture": true,
+        "soft_descriptor": "CopyApp",
+        "card": {
+          "security_code": "$securityCode",
+          "holder": {
+            "name": "$nomeImpreCard"
+          },
+          "store": true,
+          "exp_month": $expMonth,
+          "exp_year": $expYear,
+          "number": "$numberCard"
+        }
+      }
+    }
+  ]
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Pag Via Cartao PAGBANK',
+      apiUrl: 'https://sandbox.api.pagseguro.com/orders',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'x-idempotency-key': '$randow',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? status(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.charges[:].payment_response.message''',
+      ));
+  static String? idOrdem(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  static String? ultimos4digitos(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.charges[:].payment_method.card.last_digits''',
+      ));
+  static String? erroMensag(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.error_messages[:].code''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -157,10 +280,14 @@ class ApiPagingParams {
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
+String _toEncodable(dynamic item) {
+  return item;
+}
+
 String _serializeList(List? list) {
   list ??= <String>[];
   try {
-    return json.encode(list);
+    return json.encode(list, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("List serialization failed. Returning empty list.");
@@ -172,7 +299,7 @@ String _serializeList(List? list) {
 String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   jsonVar ??= (isList ? [] : {});
   try {
-    return json.encode(jsonVar);
+    return json.encode(jsonVar, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("Json serialization failed. Returning empty json.");

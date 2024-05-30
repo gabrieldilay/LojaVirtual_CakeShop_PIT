@@ -28,4 +28,7 @@ class UsersRow extends SupabaseDataRow {
 
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
+
+  bool? get adm => getField<bool>('adm');
+  set adm(bool? value) => setField<bool>('adm', value);
 }

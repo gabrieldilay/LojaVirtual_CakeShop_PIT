@@ -32,4 +32,7 @@ class StatusDosPedidosRow extends SupabaseDataRow {
 
   String? get enderecoUser => getField<String>('endereco_user');
   set enderecoUser(String? value) => setField<String>('endereco_user', value);
+
+  DateTime? get dataformate => getField<DateTime>('dataformate');
+  set dataformate(DateTime? value) => setField<DateTime>('dataformate', value);
 }
