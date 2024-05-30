@@ -1,7 +1,18 @@
 # Projeto Integrador Transdisciplinar em Engenharia de Software II - UNICID - Cruzeiro do Sul Virtual
 
-A new Flutter project.
+## Informações do Projeto
 
-## Getting Started
+Link da Solução em Funcionamento: https://cupcakestore-pit-gabrield.flutterflow.app/
+DEMO USER ADMIN: jose@hotmail.com / 123456abc (user/password)
+Autor: Gabriel Dilay de Oliveira
 
-FlutterFlow projects are built to run on the Flutter _stable_ release.
+## Documentação
+Documentação: 
+
+## Codificação
+
+Modo de codificação: Low Code
+Linguagem Utilizada: Dart
+Banco de Dados: PostgreSQL
+Hospedagem: Supabase
+Plataforma: Mobile - Dashboard Adm (WEB)
