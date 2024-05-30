@@ -100,21 +100,20 @@ class _InfoPedidosWidgetState extends State<InfoPedidosWidget> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                4.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                rowUsersRow?.nome,
-                                'Nome',
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  4.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                '${rowUsersRow?.nome} - ${rowUsersRow?.id.toString()}',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                    ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                  ),
                             ),
                           ),
                         ],

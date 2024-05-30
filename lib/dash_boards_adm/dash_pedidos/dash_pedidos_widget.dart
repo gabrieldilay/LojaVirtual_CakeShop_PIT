@@ -1,4 +1,5 @@
 import '/backend/supabase/supabase.dart';
+import '/dash_boards_adm/detalhesdos_pedidos/detalhesdos_pedidos_widget.dart';
 import '/dash_boards_adm/info_pedidos/info_pedidos_widget.dart';
 import '/dash_boards_adm/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -134,11 +135,48 @@ class _DashPedidosWidgetState extends State<DashPedidosWidget> {
                                         final gridViewStatusDosPedidosRow =
                                             gridViewStatusDosPedidosRowList[
                                                 gridViewIndex];
-                                        return InfoPedidosWidget(
-                                          key: Key(
-                                              'Keyj6k_${gridViewIndex}_of_${gridViewStatusDosPedidosRowList.length}'),
-                                          referencia:
-                                              gridViewStatusDosPedidosRow,
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        DetalhesdosPedidosWidget(
+                                                      referencia:
+                                                          gridViewStatusDosPedidosRow,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                          child: InfoPedidosWidget(
+                                            key: Key(
+                                                'Keyj6k_${gridViewIndex}_of_${gridViewStatusDosPedidosRowList.length}'),
+                                            referencia:
+                                                gridViewStatusDosPedidosRow,
+                                          ),
                                         );
                                       },
                                     );

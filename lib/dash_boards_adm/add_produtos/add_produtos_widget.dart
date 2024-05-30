@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'add_produtos_model.dart';
 export 'add_produtos_model.dart';
@@ -97,126 +96,6 @@ class _AddProdutosWidgetState extends State<AddProdutosWidget> {
                       ),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 200.0,
-                        height: 200.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: Image.network(
-                              _model.uploadedFileUrl,
-                            ).image,
-                          ),
-                          borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).alternate,
-                            width: 1.0,
-                          ),
-                        ),
-                        child: Visibility(
-                          visible: _model.uploadedFileUrl == '',
-                          child: Icon(
-                            Icons.upload_sharp,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 50.0,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              storageFolderPath: 'fotos',
-                              maxWidth: 1000.00,
-                              maxHeight: 1000.00,
-                              imageQuality: 70,
-                              allowPhoto: true,
-                            );
-                            if (selectedMedia != null &&
-                                selectedMedia.every((m) => validateFileFormat(
-                                    m.storagePath, context))) {
-                              setState(() => _model.isDataUploading = true);
-                              var selectedUploadedFiles = <FFUploadedFile>[];
-
-                              var downloadUrls = <String>[];
-                              try {
-                                showUploadMessage(
-                                  context,
-                                  'Uploading file...',
-                                  showLoading: true,
-                                );
-                                selectedUploadedFiles = selectedMedia
-                                    .map((m) => FFUploadedFile(
-                                          name: m.storagePath.split('/').last,
-                                          bytes: m.bytes,
-                                          height: m.dimensions?.height,
-                                          width: m.dimensions?.width,
-                                          blurHash: m.blurHash,
-                                        ))
-                                    .toList();
-
-                                downloadUrls = await uploadSupabaseStorageFiles(
-                                  bucketName: 'template',
-                                  selectedFiles: selectedMedia,
-                                );
-                              } finally {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                _model.isDataUploading = false;
-                              }
-                              if (selectedUploadedFiles.length ==
-                                      selectedMedia.length &&
-                                  downloadUrls.length == selectedMedia.length) {
-                                setState(() {
-                                  _model.uploadedLocalFile =
-                                      selectedUploadedFiles.first;
-                                  _model.uploadedFileUrl = downloadUrls.first;
-                                });
-                                showUploadMessage(context, 'Success!');
-                              } else {
-                                setState(() {});
-                                showUploadMessage(
-                                    context, 'Failed to upload data');
-                                return;
-                              }
-                            }
-                          },
-                          text: 'Carregar Nova Imagem',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 3.0,
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -438,13 +317,7 @@ class _AddProdutosWidgetState extends State<AddProdutosWidget> {
                     FlutterFlowDropDown<String>(
                       controller: _model.dropDownValueController ??=
                           FormFieldController<String>(null),
-                      options: const [
-                        'Bordas',
-                        'Sucos',
-                        'Refrigerantes',
-                        'Pizza Salgada',
-                        'Pizza Doce'
-                      ],
+                      options: const ['bebida', 'trad', 'esp'],
                       onChanged: (val) =>
                           setState(() => _model.dropDownValue = val),
                       width: 300.0,
@@ -489,7 +362,8 @@ class _AddProdutosWidgetState extends State<AddProdutosWidget> {
                               double.tryParse(_model.valorTextController.text),
                           'descricao': _model.descricaoTextController.text,
                           'tag': _model.dropDownValue,
-                          'img': _model.uploadedFileUrl,
+                          'img':
+                              'https://marketplace.canva.com/EAF0ejM6lq4/1/0/1600w/canva-pink-and-blue-sweet-cupcake-bakery-logo-jkQ8p33_l7U.jpg',
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

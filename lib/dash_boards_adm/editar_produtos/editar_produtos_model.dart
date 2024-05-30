@@ -6,11 +6,6 @@ import 'package:flutter/material.dart';
 class EditarProdutosModel extends FlutterFlowModel<EditarProdutosWidget> {
   ///  State fields for stateful widgets in this component.
 
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
-
   // State field(s) for titulo widget.
   FocusNode? tituloFocusNode;
   TextEditingController? tituloTextController;
