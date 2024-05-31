@@ -1,4 +1,4 @@
-# Projeto Integrador Transdisciplinar em Engenharia de Software II - UNICID - Cruzeiro do Sul Virtual
+# Projeto Integrador Transdisciplinar em Engenharia de Software II 
 
 ## Informações do Projeto
 
