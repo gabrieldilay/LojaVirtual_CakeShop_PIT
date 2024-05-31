@@ -3,7 +3,7 @@
 ## Informações do Projeto
 
 **Link da Solução em Funcionamento:** https://cupcakestore-pit-gabrield.flutterflow.app/  
-**DEMO USER ADMIN:** jose@hotmail.com / 123456abc (user/password)  
+**DEMO USER ADMIN:** gabriel@hotmail.com / 123456abc (user/password)  
 **Autor:** Gabriel Dilay de Oliveira  
 
 ## Documentação
